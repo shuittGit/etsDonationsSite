@@ -1,0 +1,8 @@
+{
+  "name": "ETS Donations Records Portal",
+  "description": "Secure donation records dashboard with credential-based access, searchable giving ledger, and sortable tables.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
