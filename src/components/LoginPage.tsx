@@ -40,7 +40,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ donations, onLoginSuccess,
         onLoginSuccess({
           username: dbUser.username,
           name: `${dbUser.first_name} ${dbUser.last_name}`.trim(),
-          isAdmin: false,
+          isAdmin: dbUser.role === 'SuperAdmin' || dbUser.role === 'Admin',
           loginTime: new Date().toISOString(),
           role: dbUser.role,
           pin: pinValue,

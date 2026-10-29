@@ -8,10 +8,45 @@ import { createClient } from '@supabase/supabase-js';
  * and inserts the row in one step. The browser never reads the Users table directly.
  */
 
-export const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL || 'https://edjzkpdygnfghkcjfsgg.supabase.co';
+const supabaseKey =
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  'sb_publishable_a5kemPfSHDz9PzOiNssUnw_jmG_uZii';
+
+/**
+ * Custom fetch to handle sandbox iframe restrictions.
+ * If direct browser fetch fails (e.g., cross-origin or sandbox iframe restrictions),
+ * automatically retry via the same-origin Vite proxy.
+ */
+const customFetch: typeof fetch = async (input, init) => {
+  try {
+    return await fetch(input, init);
+  } catch (err) {
+    const urlStr =
+      typeof input === 'string'
+        ? input
+        : input instanceof URL
+          ? input.href
+          : (input as Request)?.url;
+    if (urlStr) {
+      const match = urlStr.match(/^https?:\/\/[^/]+(\/(?:rest|auth)\/v1\/.*)$/);
+      if (match) {
+        if (typeof input === 'object' && 'url' in input && !(input instanceof URL)) {
+          return await fetch(match[1], { ...init, method: (input as Request).method });
+        }
+        return await fetch(match[1], init);
+      }
+    }
+    throw err;
+  }
+};
+
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  global: {
+    fetch: customFetch,
+  },
+});
 
 export interface UserRow {
   username: string;
