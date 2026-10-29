@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Lock, ShieldCheck, Eye, EyeOff, User, KeyRound, ArrowRight } from 'lucide-react';
+import { Lock, Eye, EyeOff, User, KeyRound, ArrowRight } from 'lucide-react';
+import logo from '../img/ets_ai_consulting_logo.gif';
 import { DonationRecord, UserSession } from '../types';
 import { authenticateUser } from '../data/donationsData';
 import { loginUser } from '../data/usersData';
@@ -62,11 +63,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ donations, onLoginSuccess,
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
       {/* Top security header bar */}
-      <header className="border-b border-slate-800/80 px-6 py-4 flex items-center justify-between">
+      <header className="border-b border-slate-800/80 px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
+          {/* Same 32x32 box the shield icon used; object-contain keeps the logo's proportions */}
+          <img
+            src={logo}
+            alt="ETS AI Consulting"
+            title="ETS AI Consulting"
+            width={32}
+            height={32}
+            className="w-8 h-8 shrink-0 rounded-lg object-contain"
+          />
           <div>
             <span className="text-base font-bold tracking-tight text-white block">
               ETS Donations Records Portal

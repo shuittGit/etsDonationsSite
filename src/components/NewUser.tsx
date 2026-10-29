@@ -31,7 +31,7 @@ const emptyForm: NewUserForm = {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const inputBase =
-  'bg-white border rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
+  'bg-white border rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
 const inputOk = 'border-slate-300 focus:ring-emerald-500/40 focus:border-emerald-500';
 const inputRequiredEmpty = 'border-red-500 focus:ring-red-500/40 focus:border-red-500';
 
@@ -242,7 +242,7 @@ export const NewUser: React.FC<NewUserProps> = ({ onSubmit, onCreated, onCancel 
             <button
               type="submit"
               disabled={isSaving}
-              className="px-3.5 py-2 text-sm font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-300 border border-transparent rounded-lg transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+              className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-300 border border-transparent rounded-lg transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
             >
               Create
             </button>
@@ -250,7 +250,7 @@ export const NewUser: React.FC<NewUserProps> = ({ onSubmit, onCreated, onCancel 
               type="button"
               onClick={handleReset}
               disabled={isSaving}
-              className="px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+              className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
             >
               Reset
             </button>

@@ -359,7 +359,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-16">
       <section className="bg-white border-b border-slate-200 py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1480px] mx-auto flex items-end justify-between gap-4">
+        <div className="max-w-[1510px] mx-auto flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="text-xs text-slate-500 mb-1">ETS Donations Records Portal · Donation Ledgers</div>
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">Donation Ledgers</h1>
@@ -368,12 +368,12 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
           {/* Top right, level with the title: Donations List (everyone), then Users and
               Non Profits (SuperAdmin only) */}
           {canView && (
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handleExportCsv}
                 disabled={sortedRows.length === 0}
-                className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                className="min-h-11 sm:min-h-0 flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Export CSV</span>
@@ -381,7 +381,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToDonationsList}
-                className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
+                className="min-h-11 sm:min-h-0 flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <ListChecks className="w-3.5 h-3.5" />
                 <span>Donations List</span>
@@ -391,7 +391,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToUsers}
-                className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
+                className="min-h-11 sm:min-h-0 flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <UsersIcon className="w-3.5 h-3.5" />
                 <span>Users</span>
@@ -399,7 +399,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
               <button
                 type="button"
                 onClick={onNavigateToNonProfits}
-                className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
+                className="min-h-11 sm:min-h-0 flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <Building2 className="w-3.5 h-3.5" />
                 <span>Non Profits</span>
@@ -411,7 +411,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
         </div>
       </section>
 
-      <main className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <main className="max-w-[1510px] mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         {/* Summary cards (Admin and SuperAdmin): first line is the title, second line the value */}
         {isManager && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
@@ -455,7 +455,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 setPage(1);
               }}
               placeholder="Filter by any column..."
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2.5 sm:py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all"
             />
             {searchQuery && (
               <button
@@ -482,7 +482,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 setPageSize(Number(e.target.value));
                 setPage(1);
               }}
-              className="bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 cursor-pointer"
+              className="bg-slate-50 border border-slate-200 min-h-11 sm:min-h-0 rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 cursor-pointer"
             >
               {PAGE_SIZES.map((size) => (
                 <option key={size} value={size}>
@@ -491,7 +491,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
               ))}
             </select>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2 sm:gap-1">
               {[
                 { label: 'First page', icon: ChevronsLeft, disabled: currentPage === 1, go: () => setPage(1) },
                 { label: 'Previous page', icon: ChevronLeft, disabled: currentPage === 1, go: () => setPage(currentPage - 1) },
@@ -505,7 +505,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                   disabled={disabled}
                   title={label}
                   aria-label={label}
-                  className="p-1.5 text-slate-700 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="p-3 sm:p-1.5 text-slate-700 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <Icon className="w-4 h-4" />
                 </button>
@@ -553,7 +553,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
         )}
 
         <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead>
                 <tr className="bg-slate-50/90 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider select-none">
@@ -625,7 +625,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                           <button
                             type="button"
                             onClick={() => setEditingLedger(row)}
-                            className="text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
+                            className="inline-flex items-center min-h-11 px-2 sm:min-h-0 sm:px-0 text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
                           >
                             Edit
                           </button>
@@ -635,7 +635,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                         <button
                           type="button"
                           onClick={() => openDetails(row)}
-                          className="text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
+                          className="inline-flex items-center min-h-11 px-2 sm:min-h-0 sm:px-0 text-emerald-700 hover:text-emerald-800 hover:underline font-medium cursor-pointer"
                         >
                           Details
                         </button>
@@ -648,7 +648,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                               setDeleteMessage(null);
                               setDeletingLedger(row);
                             }}
-                            className="text-rose-700 hover:text-rose-800 hover:underline font-medium cursor-pointer"
+                            className="inline-flex items-center min-h-11 px-2 sm:min-h-0 sm:px-0 text-rose-700 hover:text-rose-800 hover:underline font-medium cursor-pointer"
                           >
                             Delete
                           </button>
@@ -682,7 +682,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
           aria-modal="true"
           aria-labelledby="deleteLedgerTitle"
         >
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 text-slate-900">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-4 sm:p-6 break-words text-slate-900 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             <h3 id="deleteLedgerTitle" className="font-bold text-base mb-2">
               Are you sure you want to delete this donation ledger?
             </h3>
@@ -707,7 +707,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 type="button"
                 onClick={handleConfirmDelete}
                 disabled={isDeleting || deleteMessage?.type === 'success'}
-                className="px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+                className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
               >
                 Yes
               </button>
@@ -715,7 +715,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 type="button"
                 onClick={closeDelete}
                 disabled={isDeleting}
-                className="px-3.5 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+                className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
               >
                 No
               </button>
@@ -746,7 +746,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
           aria-modal="true"
           aria-labelledby="ledgerDetailsTitle"
         >
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full p-6 text-slate-900">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full p-4 sm:p-6 break-words text-slate-900 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             {/* Non Profit name, top left */}
             <div className="flex items-start justify-between gap-4 mb-5">
               <h3 id="ledgerDetailsTitle" className="font-bold text-base text-left">
@@ -755,7 +755,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
               <button
                 type="button"
                 onClick={closeDetails}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="p-3 sm:p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
                 aria-label="Close details"
               >
                 <X className="w-5 h-5" />
@@ -772,9 +772,9 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
 
             {details && (
               // Left aligned; every value sits on the same line as its label
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-left text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-left text-sm">
                 {/* Row 1 */}
-                <div className="col-span-2 flex items-baseline gap-1.5">
+                <div className="sm:col-span-2 flex items-baseline gap-1.5">
                   <span className="font-medium text-slate-500">Name:</span>
                   <span className="font-semibold">
                     {details.first_name} {details.last_name}
@@ -782,7 +782,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 </div>
 
                 {/* Row 2 */}
-                <div className="col-span-2 flex items-baseline gap-1.5">
+                <div className="sm:col-span-2 flex items-baseline gap-1.5">
                   <span className="font-medium text-slate-500">Total Number of Donations:</span>
                   <span className="font-semibold font-mono tabular-nums">
                     {details.total_num_of_donations ?? ''}
@@ -790,7 +790,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 </div>
 
                 {/* Row 3 */}
-                <div className="col-span-2 flex items-baseline gap-1.5">
+                <div className="sm:col-span-2 flex items-baseline gap-1.5">
                   <span className="font-medium text-slate-500">Total Donation Amount:</span>
                   <span className="font-semibold font-mono tabular-nums">
                     {formatMoney(details.total_amount)}
@@ -826,7 +826,7 @@ export const DonationsLedgers: React.FC<DonationsLedgersProps> = ({
                 </div>
 
                 {/* Row 6 */}
-                <div className="col-span-2 flex items-baseline gap-1.5">
+                <div className="sm:col-span-2 flex items-baseline gap-1.5">
                   <span className="font-medium text-slate-500">Avg. Donation Amount:</span>
                   <span className="font-semibold font-mono tabular-nums">
                     {formatMoney(details.avg_donation_amount)}

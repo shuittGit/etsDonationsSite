@@ -26,7 +26,7 @@ interface EditNonProfitForm {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const inputBase =
-  'bg-white border rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
+  'bg-white border rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
 const inputOk = 'border-slate-300 focus:ring-emerald-500/40 focus:border-emerald-500';
 const inputRequiredEmpty = 'border-red-500 focus:ring-red-500/40 focus:border-red-500';
 
@@ -58,7 +58,7 @@ export const EditNonProfit: React.FC<EditNonProfitProps> = ({ session, nonProfit
       aria-labelledby="editNonProfitTitle"
     >
       <div className="min-h-full flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full p-6 text-slate-900">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full p-4 sm:p-6 break-words text-slate-900 max-h-[calc(100dvh-2rem)] overflow-y-auto">
           <div className="flex items-start justify-between gap-4 mb-6">
             <h3 id="editNonProfitTitle" className="text-xl font-bold tracking-tight">
               Edit Non Profit
@@ -66,7 +66,7 @@ export const EditNonProfit: React.FC<EditNonProfitProps> = ({ session, nonProfit
             <button
               type="button"
               onClick={onClose}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-3 sm:p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -318,7 +318,7 @@ const EditNonProfitForm: React.FC<EditNonProfitFormProps> = ({ session, nonProfi
           type="button"
           onClick={handleReset}
           disabled={isSaving}
-          className="px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+          className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
         >
           Reset
         </button>

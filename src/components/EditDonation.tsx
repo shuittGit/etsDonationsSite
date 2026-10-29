@@ -23,7 +23,7 @@ interface EditDonationForm {
 }
 
 const inputBase =
-  'bg-white border rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
+  'bg-white border rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
 const inputOk = 'border-slate-300 focus:ring-emerald-500/40 focus:border-emerald-500';
 
 /** Loads the donation being edited, then shows the form in a popup centered on the screen. */
@@ -55,7 +55,7 @@ export const EditDonation: React.FC<EditDonationProps> = ({ session, ledgerId, o
       aria-labelledby="editDonationTitle"
     >
       <div className="min-h-full flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full p-6 text-slate-900">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full p-4 sm:p-6 break-words text-slate-900 max-h-[calc(100dvh-2rem)] overflow-y-auto">
           <div className="flex items-start justify-between gap-4 mb-6">
             <h3 id="editDonationTitle" className="text-xl font-bold tracking-tight">
               {details ? `Edit ${details.non_profit_name} Donation` : 'Edit Donation'}
@@ -63,7 +63,7 @@ export const EditDonation: React.FC<EditDonationProps> = ({ session, ledgerId, o
             <button
               type="button"
               onClick={onClose}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-3 sm:p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -124,7 +124,6 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
   const [form, setForm] = useState<EditDonationForm>(original.form);
   const [scheduled_payments, setScheduledPayments] = useState<string[]>(original.scheduled_payments);
 
-  const datePickerRef = useRef<HTMLInputElement>(null);
 
   const [submitted, setSubmitted] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -170,17 +169,6 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
     scheduled_payments.length > 0 ? parseDate(scheduled_payments[scheduled_payments.length - 1]) : null;
 
   const todayText = formatDate(new Date());
-
-  const openCalendar = () => {
-    const picker = datePickerRef.current;
-    if (!picker) return;
-    try {
-      picker.showPicker();
-    } catch {
-      picker.focus();
-      picker.click();
-    }
-  };
 
   // Reset: every form value and scheduled_payments go back to what the record had on opening
   const handleReset = () => {
@@ -234,7 +222,7 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
       </div>
 
       {/* Total Number of Donations and Total Donation Amount share a row */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="edit_total_num_of_donations" className="text-sm font-medium text-slate-700">
             Total Number of Donations
@@ -282,7 +270,7 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
       </div>
 
       {/* Start Date and End Date share a row */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="edit_start_date" className="text-sm font-medium text-slate-700">
             Start Date
@@ -300,25 +288,33 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
               onChange={(e) => changeStartDate(e.target.value.replace(/[^0-9-]/g, ''))}
               className={`${inputBase} ${inputOk} w-36 font-mono`}
             />
-            <button
-              type="button"
-              onClick={openCalendar}
-              title="Choose a date"
-              aria-label="Choose a start date from the calendar"
-              className="p-2 text-slate-600 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
-            >
-              <Calendar className="w-4 h-4" />
-            </button>
-            {/* Native calendar; its value is already YYYY-MM-DD */}
-            <input
-              ref={datePickerRef}
-              type="date"
-              tabIndex={-1}
-              aria-hidden="true"
-              value={parseDate(form.start_date) ? form.start_date : ''}
-              onChange={(e) => changeStartDate(e.target.value)}
-              className="absolute left-40 top-full w-0 h-0 opacity-0 pointer-events-none"
-            />
+            {/* The calendar button. The real (invisible) date field sits on top of it, so a tap
+                or click lands on the field itself, which opens the phone's own date picker. The
+                value is already YYYY-MM-DD. */}
+            <div className="relative shrink-0">
+              <span
+                className="flex items-center justify-center min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 p-2 text-slate-600 bg-slate-50 border border-slate-200 rounded-lg"
+                aria-hidden="true"
+              >
+                <Calendar className="w-4 h-4" />
+              </span>
+              <input
+                type="date"
+                title="Choose a date"
+                aria-label="Choose a start date from the calendar"
+                value={parseDate(form.start_date) ? form.start_date : ''}
+                onChange={(e) => changeStartDate(e.target.value)}
+                onClick={(e) => {
+                  // desktop browsers need this to open the picker; phones open it on their own
+                  try {
+                    e.currentTarget.showPicker();
+                  } catch {
+                    // not supported: the browser's own behavior is used
+                  }
+                }}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-col gap-1.5">
@@ -371,7 +367,7 @@ const EditDonationForm: React.FC<EditDonationFormProps> = ({
           type="button"
           onClick={handleReset}
           disabled={isSaving}
-          className="px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+          className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
         >
           Reset
         </button>

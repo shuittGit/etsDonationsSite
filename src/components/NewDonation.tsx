@@ -32,7 +32,7 @@ const emptyForm: NewDonationForm = {
 };
 
 const inputBase =
-  'bg-white border rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
+  'bg-white border rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
 const inputOk = 'border-slate-300 focus:ring-emerald-500/40 focus:border-emerald-500';
 const inputRequiredEmpty = 'border-red-500 focus:ring-red-500/40 focus:border-red-500';
 
@@ -52,7 +52,6 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
   const [listOpen, setListOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
 
-  const datePickerRef = useRef<HTMLInputElement>(null);
 
   // Submit state
   const [submitted, setSubmitted] = useState(false);
@@ -129,17 +128,6 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
       chooseDonor(matches[highlight]);
     } else if (e.key === 'Escape') {
       setListOpen(false);
-    }
-  };
-
-  const openCalendar = () => {
-    const picker = datePickerRef.current;
-    if (!picker) return;
-    try {
-      picker.showPicker();
-    } catch {
-      picker.focus();
-      picker.click();
     }
   };
 
@@ -320,7 +308,7 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
           )}
 
           {/* Total Number of Donations and Total Donation Amount share a row */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="total_num_of_donations" className="text-sm font-medium text-slate-700">
               Total Number of Donations
@@ -369,7 +357,7 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
           </div>
 
           {/* Start Date and End Date share a row */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="start_date" className="text-sm font-medium text-slate-700">
               Start Date
@@ -387,25 +375,33 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
                 onChange={(e) => update('start_date', e.target.value.replace(/[^0-9-]/g, ''))}
                 className={`${inputBase} ${inputOk} w-36 font-mono`}
               />
-              <button
-                type="button"
-                onClick={openCalendar}
-                title="Choose a date"
-                aria-label="Choose a start date from the calendar"
-                className="p-2 text-slate-600 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
-              >
-                <Calendar className="w-4 h-4" />
-              </button>
-              {/* Native calendar; its value is already YYYY-MM-DD */}
-              <input
-                ref={datePickerRef}
-                type="date"
-                tabIndex={-1}
-                aria-hidden="true"
-                value={parseDate(form.start_date) ? form.start_date : ''}
-                onChange={(e) => update('start_date', e.target.value)}
-                className="absolute left-40 top-full w-0 h-0 opacity-0 pointer-events-none"
-              />
+              {/* The calendar button. The real (invisible) date field sits on top of it, so a tap
+                  or click lands on the field itself, which opens the phone's own date picker. The
+                  value is already YYYY-MM-DD. */}
+              <div className="relative shrink-0">
+                <span
+                  className="flex items-center justify-center min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 p-2 text-slate-600 bg-slate-50 border border-slate-200 rounded-lg"
+                  aria-hidden="true"
+                >
+                  <Calendar className="w-4 h-4" />
+                </span>
+                <input
+                  type="date"
+                  title="Choose a date"
+                  aria-label="Choose a start date from the calendar"
+                  value={parseDate(form.start_date) ? form.start_date : ''}
+                  onChange={(e) => update('start_date', e.target.value)}
+                  onClick={(e) => {
+                    // desktop browsers need this to open the picker; phones open it on their own
+                    try {
+                      e.currentTarget.showPicker();
+                    } catch {
+                      // not supported: the browser's own behavior is used
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
             </div>
           </div>
 
@@ -457,7 +453,7 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
             <button
               type="submit"
               disabled={isSaving}
-              className="px-3.5 py-2 text-sm font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-300 border border-transparent rounded-lg transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+              className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-300 border border-transparent rounded-lg transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
             >
               Create
             </button>
@@ -465,7 +461,7 @@ export const NewDonation: React.FC<NewDonationProps> = ({ session, onBack, onCre
               type="button"
               onClick={handleReset}
               disabled={isSaving}
-              className="px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
+              className="min-h-11 sm:min-h-0 px-3.5 py-2 text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors whitespace-nowrap disabled:opacity-60 cursor-pointer"
             >
               Reset
             </button>

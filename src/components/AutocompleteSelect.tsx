@@ -22,7 +22,7 @@ interface AutocompleteSelectProps {
 }
 
 const inputBase =
-  'bg-white border rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
+  'bg-white border rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 transition-all';
 const inputOk = 'border-slate-300 focus:ring-emerald-500/40 focus:border-emerald-500';
 const inputRequiredEmpty = 'border-red-500 focus:ring-red-500/40 focus:border-red-500';
 
